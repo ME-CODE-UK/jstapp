@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 450),
-              Container(
+              SizedBox(
                 width: 220,
                 height: 50,
                 child: ElevatedButton(    
