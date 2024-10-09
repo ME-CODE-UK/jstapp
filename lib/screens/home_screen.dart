@@ -32,14 +32,14 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 200),
-              Container(
+              SizedBox(
                 width: 220,
                 height: 50,
                 child: ElevatedButton(    
                   style: ElevatedButton.styleFrom(
                     
-                    foregroundColor: Color.fromARGB(255, 255, 255, 255),
-                    backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                    foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                   ),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportScreen()));
