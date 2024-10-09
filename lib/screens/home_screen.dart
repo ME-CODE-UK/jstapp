@@ -23,9 +23,9 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              Text(
                 'JST Forklift Report',
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: Colors.black,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -38,14 +38,14 @@ class HomeScreen extends StatelessWidget {
                 child: ElevatedButton(    
                   style: ElevatedButton.styleFrom(
                     
-                    foregroundColor: Color.fromARGB(255, 255, 255, 255),
-                    backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                    foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                   ),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportScreen()));
                   },
-                  child: const Text(
-                    style: TextStyle(
+                  child: Text(
+                    style: GoogleFonts.montserrat(
                       fontSize: 16,
                     ),
                     'SEND REPORT',
