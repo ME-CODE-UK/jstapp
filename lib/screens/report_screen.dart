@@ -17,23 +17,23 @@ class ReportScreen extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
         ),
-        child: const Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
+      ),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(false),
+        ),
+        backgroundColor: Colors.black,
+        title: Text(
                 'Report Form',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
+                  color: Colors.white,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 600),
-            ],
-          ),
-        ),
-      ),
+      )
     );
   }
 }//comment added to test new repo
