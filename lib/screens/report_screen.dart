@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ReportScreen extends StatelessWidget {
   const ReportScreen({super.key});
@@ -27,7 +28,7 @@ class ReportScreen extends StatelessWidget {
         backgroundColor: Colors.black,
         title: Text(
                 'Report Form',
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   color: Colors.white,
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
