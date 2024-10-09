@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jstapp/screens/report_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,7 +10,9 @@ class HomeScreen extends StatelessWidget {
       children: [
         const Text("Title here"),
         ElevatedButton(
-          onPressed: () {}, 
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportScreen()));
+          }, 
           child: const Text("Send report"),
         ),
       ],
