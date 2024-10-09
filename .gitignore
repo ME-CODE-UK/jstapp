@@ -43,5 +43,6 @@ app.*.map.json
 /android/app/release
 
 # To not commit windows and linux folders
-/windows
-/linux
+windows/*
+linux/*
+macos/*
