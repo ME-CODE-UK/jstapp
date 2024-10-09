@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 200),
+              const SizedBox(height: 450),
               Container(
                 width: 220,
                 height: 50,
