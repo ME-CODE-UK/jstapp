@@ -27,6 +27,7 @@ class HomeScreen extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 30,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 200),
@@ -44,9 +45,9 @@ class HomeScreen extends StatelessWidget {
                   },
                   child: const Text(
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                     ),
-                    'Send report',
+                    'SEND REPORT',
                   ),
                 ),
               ),
