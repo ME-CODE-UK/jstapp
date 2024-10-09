@@ -21,8 +21,19 @@ class HomeScreen extends StatelessWidget {
         ),
         child: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            //mainAxisSize: MainAxisSize.min,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 200, bottom: 40),
+                child: SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: Image.asset('assets/jst-logo.png',
+                    fit: BoxFit.cover,
+                    //width: 200,
+                  ),
+                ),
+              ),
               Text(
                 'JST Forklift Report',
                 style: GoogleFonts.montserrat(
@@ -31,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 450),
+              const SizedBox(height: 150),
               SizedBox(
                 width: 220,
                 height: 50,
