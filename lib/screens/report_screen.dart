@@ -34,6 +34,56 @@ class ReportScreen extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
         ),
+        child: const Padding(
+          padding: EdgeInsets.all(50),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(bottom: 30),
+                child: TextField(
+                  decoration: InputDecoration(
+                    label: Text('Forklift ID'),
+                    border: OutlineInputBorder(),
+                    hintText: 'Please enter the ID of the vehicle',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 30),
+                child: TextField(
+                  decoration: InputDecoration(
+                    label: Text('Driver name'),
+                    border: OutlineInputBorder(),
+                    hintText: 'Please enter your name',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 30),
+                child: TextField(
+                  decoration: InputDecoration(
+                    label: Text('<replace with drop down>'),
+                    border: OutlineInputBorder(),
+                    hintText: 'Placeholder text',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 30),
+                child: TextField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 20
+                    ),
+                    label: Text('Details'),
+                    border: OutlineInputBorder(),
+                    hintText: 'Please use this space to provide any useful details about the issue',
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
