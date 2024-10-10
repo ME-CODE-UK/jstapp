@@ -65,6 +65,16 @@ class _ReportScreenState extends State<ReportScreen> {
                   ),
                 ),
               ),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 30),
+                child: TextField(
+                  decoration: InputDecoration(
+                    label: Text('Driver name'),
+                    border: OutlineInputBorder(),
+                    hintText: 'Please enter your name',
+                  ),
+                ),
+              ),
               Container(
                 width: 150,
                 height: 80,
@@ -83,26 +93,6 @@ class _ReportScreenState extends State<ReportScreen> {
                       });
                     },
                     value: _dropValue,
-                  ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 30),
-                child: TextField(
-                  decoration: InputDecoration(
-                    label: Text('Driver name'),
-                    border: OutlineInputBorder(),
-                    hintText: 'Please enter your name',
-                  ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 30),
-                child: TextField(
-                  decoration: InputDecoration(
-                    label: Text('<replace with drop down>'),
-                    border: OutlineInputBorder(),
-                    hintText: 'Placeholder text',
                   ),
                 ),
               ),
