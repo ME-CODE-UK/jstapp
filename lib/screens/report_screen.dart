@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ReportScreen extends StatelessWidget {
+class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
+
+  @override
+  State<ReportScreen> createState() {
+    return _ReportScreenState();
+  }
+}
+
+class _ReportScreenState extends State<ReportScreen> {
+  String _dropValue = 'Fault one';
+
+  final _commonFaults = [
+    'Fault one',
+    'Fault two',
+    'Fault three',
+    'Fault four',
+    'Fault five',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +51,11 @@ class ReportScreen extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
         ),
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.all(50),
           child: Column(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(bottom: 30),
                 child: TextField(
                   decoration: InputDecoration(
@@ -48,7 +65,28 @@ class ReportScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
+              Container(
+                width: 150,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: DropdownButton(
+                    items: _commonFaults.map((String item) {
+                      return DropdownMenuItem(value: item, child: Text(item));
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _dropValue = newValue!;
+                      });
+                    },
+                    value: _dropValue,
+                  ),
+                ),
+              ),
+              const Padding(
                 padding: EdgeInsets.only(bottom: 30),
                 child: TextField(
                   decoration: InputDecoration(
@@ -58,7 +96,7 @@ class ReportScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(bottom: 30),
                 child: TextField(
                   decoration: InputDecoration(
@@ -68,16 +106,15 @@ class ReportScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(bottom: 30),
                 child: TextField(
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                      vertical: 20
-                    ),
+                    contentPadding: EdgeInsets.symmetric(vertical: 20),
                     label: Text('Details'),
                     border: OutlineInputBorder(),
-                    hintText: 'Please use this space to provide any useful details about the issue',
+                    hintText:
+                        'Please use this space to provide any useful details about the issue',
                   ),
                 ),
               ),
