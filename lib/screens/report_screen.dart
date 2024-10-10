@@ -7,6 +7,22 @@ class ReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(false),
+        ),
+        backgroundColor: Colors.black,
+        title: Text(
+          'Report Form',
+          style: GoogleFonts.montserrat(
+            color: Colors.white,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -19,22 +35,6 @@ class ReportScreen extends StatelessWidget {
           ),
         ),
       ),
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          color: Colors.white,
-          onPressed: () => Navigator.of(context).pop(false),
-        ),
-        backgroundColor: Colors.black,
-        title: Text(
-                'Report Form',
-                style: GoogleFonts.montserrat(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-      )
     );
   }
-}//comment added to test new repo
+}
