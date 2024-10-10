@@ -75,24 +75,26 @@ class _ReportScreenState extends State<ReportScreen> {
                   ),
                 ),
               ),
-              Container(
-                width: 150,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: DropdownButton(
-                    items: _commonFaults.map((String item) {
-                      return DropdownMenuItem(value: item, child: Text(item));
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _dropValue = newValue!;
-                      });
-                    },
-                    value: _dropValue,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30),
+                child: Container(
+                  width: 310,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: DropdownButton(
+                      items: _commonFaults.map((String item) {
+                        return DropdownMenuItem(value: item, child: Text(item));
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _dropValue = newValue!;
+                        });
+                      },
+                      value: _dropValue,
+                    ),
                   ),
                 ),
               ),
