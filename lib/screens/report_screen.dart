@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -32,9 +31,10 @@ class _ReportScreenState extends State<ReportScreen> {
         ),
         backgroundColor: Colors.black,
         title: Text(
-          'Report Form',
-          style: GoogleFonts.montserrat(
+          'Back',
+          style: TextStyle(
             color: Colors.white,
+            fontFamily: 'Montserrat',
             fontSize: 25,
             fontWeight: FontWeight.bold,
           ),
@@ -98,15 +98,21 @@ class _ReportScreenState extends State<ReportScreen> {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 30),
-                child: TextField(
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: 20),
-                    label: Text('Details'),
-                    border: OutlineInputBorder(),
-                    hintText:
-                        'Please use this space to provide any useful details about the issue',
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30),
+                child: Scrollbar(
+                  child: TextFormField(
+                    minLines: 4,
+                    maxLines: 4,
+                    keyboardType: TextInputType.multiline,
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 20
+                      ),
+                      label: Text('Details'),
+                      border: OutlineInputBorder(),
+                      hintText: 'Please use this space to provide any useful details about the issue',
+                    ),
                   ),
                 ),
               ),

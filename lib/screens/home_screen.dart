@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jstapp/screens/report_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -28,16 +27,16 @@ class HomeScreen extends StatelessWidget {
                 child: SizedBox(
                   height: 100,
                   width: 100,
-                  child: Image.asset('assets/jst-logo.png',
+                  child: Image.asset('assets/images/jst-logo.png',
                     fit: BoxFit.cover,
-                    //width: 200,
                   ),
                 ),
               ),
-              Text(
+              const Text(
                 'JST Forklift Report',
-                style: GoogleFonts.montserrat(
+                style: TextStyle(
                   color: Colors.black,
+                  fontFamily: 'Montserrat',
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
@@ -55,8 +54,9 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportScreen()));
                   },
-                  child: Text(
-                    style: GoogleFonts.montserrat(
+                  child: const Text(
+                    style: const TextStyle(
+                      fontFamily: 'Montserrat',
                       fontSize: 16,
                     ),
                     'SEND REPORT',
@@ -69,4 +69,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}
+}//comment added to test new repo
