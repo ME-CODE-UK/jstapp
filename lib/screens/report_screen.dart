@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -138,6 +140,41 @@ class _ReportScreenState extends State<ReportScreen> {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30),
+                child: ElevatedButton(    
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  onPressed: () {
+                    String email = 'mecodeuk@gmail.com';
+                    String password = 'zgaw ftnd xphv vtuh';
+
+                    final smtpServer = gmail(email, password);
+
+                    final message = Message()
+                    ..from = Address(email, 'ME CODE UK')
+                    ..recipients.add('mecodeuk@gmail.com')
+                    ..subject = 'Test Mail'
+                    ..text = 'This is a test email to see if this email sends from correct sender and is received to correct receiver'
+                    ;
+
+                    final sendReport = send(message, smtpServer);
+                    print('Message sent: ' + sendReport.toString());
+                    ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text("Mail Sent Successfully")));
+
+                  },
+                  child: const Text(
+                    style: const TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 16,
+                    ),
+                    'SUBMIT',
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -145,3 +182,32 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 }
+
+
+sendEmail (BuildContext context) async {
+    String email = 'mecodeuk@gmail.com';
+    String password = 'xxxxxxxxxxx';
+    print('InSendEmailFunction');
+
+    final smtpServer = gmail(email, password);
+
+    final message = Message()
+    ..from = Address(email, 'ME CODE UK')
+    ..recipients.add('mecodeuk@gmail.com')
+    ..subject = 'Test Mail'
+    ..text = 'This is a test email to see if this email sends from correct sender and is received to correct receiver'
+    ;
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString());
+      ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Mail Sent Successfully")));
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      print(e.message);
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+  }
