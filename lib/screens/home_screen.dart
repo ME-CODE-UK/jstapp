@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportScreen()));
                   },
                   child: const Text(
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 16,
                     ),
