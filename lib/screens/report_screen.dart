@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
+
+import 'package:image_picker/image_picker.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -21,6 +25,25 @@ class _ReportScreenState extends State<ReportScreen> {
     'Fault four',
     'Fault five',
   ];
+
+  File? _image;
+  final picker = ImagePicker();
+
+  Future getImageGallary() async{
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
+    setState(() {
+      if(pickedFile != null){
+        _image = File(pickedFile.path);
+        // widget.imgUrl = null;
+      }
+      else{
+        print("No Image Picked");
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,6 +165,17 @@ class _ReportScreenState extends State<ReportScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 30),
+                child: IconButton(
+                    icon: const Icon(Icons.camera_alt_rounded),
+                    color: Colors.lightBlue,
+                    iconSize: 28,
+                    onPressed: () {
+                      getImageGallary();
+                    },
+                  ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30),
                 child: ElevatedButton(    
                   style: ElevatedButton.styleFrom(
                     foregroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -174,7 +208,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     'SUBMIT',
                   ),
                 ),
-              ),
+              ), 
             ],
           ),
         ),
