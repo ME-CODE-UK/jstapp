@@ -25,6 +25,7 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -54,128 +55,179 @@ class _ReportScreenState extends State<ReportScreen> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(50),
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 30),
-                child: Column(
-                  children: [
-                    Text('Forklift ID'),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Please enter the ID of the vehicle',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 30),
-                child: Column(
-                  children: [
-                    Text('Driver Name'),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Please enter your name',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 30),
-                child: Column(
-                  children: [
-                    const Text(
-                      textAlign: TextAlign.left,
-                      'Type of Fault'
-                      ),
-                    Container(
-                      width: 315,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 122, 122, 122),
-                          width: 1,
-                        )
-                      ),
-                      child: DropdownButton(
-                        items: _commonFaults.map((String item) {
-                          return DropdownMenuItem(value: item, child: Text(item));
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _dropValue = newValue!;
-                          });
-                        },
-                        value: _dropValue,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 30),
-                child: Column(
-                  children: [
-                    const Text('Details'),
-                    Scrollbar(
-                      child: TextFormField(
-                        minLines: 4,
-                        maxLines: 4,
-                        keyboardType: TextInputType.multiline,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 20
+          padding: const EdgeInsets.only(
+            left: 50,
+            right: 50,
+            top: 50,
+            bottom: 100
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 25),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Forklift ID',
+                            textAlign: TextAlign.left,
                           ),
+                        ],
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: 'Please use this space to provide any useful details about the issue',
+                          hintText: 'Please enter the ID of the vehicle',
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 30),
-                child: ElevatedButton(    
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: const Color.fromARGB(255, 255, 255, 255),
-                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-                  ),
-                  onPressed: () {
-                    String email = 'mecodeuk@gmail.com';
-                    String password = 'zgaw ftnd xphv vtuh';
-
-                    final smtpServer = gmail(email, password);
-
-                    final message = Message()
-                    ..from = Address(email, 'ME CODE UK')
-                    ..recipients.add('mecodeuk@gmail.com')
-                    ..subject = 'Test Mail'
-                    ..text = 'This is a test email to see if this email sends from correct sender and is received to correct receiver'
-                    ;
-
-                    final sendReport = send(message, smtpServer);
-                    print('Message sent: ' + sendReport.toString());
-                    ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text("Mail Sent Successfully")));
-
-                  },
-                  child: const Text(
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 16,
-                    ),
-                    'SUBMIT',
+                    ],
                   ),
                 ),
-              ),
-            ],
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 25),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text('Driver name'),
+                        ],
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Please enter your name',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 25),
+                  child: Column(
+                    children: [
+                      const Row(
+                        children: [
+                          Text(textAlign: TextAlign.left, 'Type of Fault'),
+                        ],
+                      ),
+                      Container(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 122, 122, 122),
+                              width: 1,
+                            )),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            items: _commonFaults.map((String item) {
+                              return DropdownMenuItem(
+                                  value: item, child: Text(item));
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _dropValue = newValue!;
+                              });
+                            },
+                            value: _dropValue,
+                            isExpanded: true,
+                            iconSize: 36,
+                            menuMaxHeight: 200,
+                            isDense: true,
+                          ),
+                        ),
+                      ),
+                      //),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 25),
+                  child: Column(
+                    children: [
+                      const Row(
+                        children: [
+                          Text('Details'),
+                        ],
+                      ),
+                      Scrollbar(
+                        child: TextFormField(
+                          minLines: 4,
+                          maxLines: 4,
+                          keyboardType: TextInputType.multiline,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                            border: OutlineInputBorder(),
+                            hintText:
+                                'Please use this space to provide any useful details about the issue',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 25),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Business email',
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                      Focus(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Please enter the email through which you would like us to contact you',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 30),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                    ),
+                    onPressed: () {
+                      String email = 'mecodeuk@gmail.com';
+                      String password = 'zgaw ftnd xphv vtuh';
+            
+                      final smtpServer = gmail(email, password);
+            
+                      final message = Message()
+                        ..from = Address(email, 'ME CODE UK')
+                        ..recipients.add('mecodeuk@gmail.com')
+                        ..subject = 'Test Mail'
+                        ..text =
+                            'This is a test email to see if this email sends from correct sender and is received to correct receiver';
+            
+                      final sendReport = send(message, smtpServer);
+                      print('Message sent: ' + sendReport.toString());
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Mail Sent Successfully")));
+                    },
+                    child: const Text(
+                      style: const TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 16,
+                      ),
+                      'SUBMIT',
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -183,31 +235,30 @@ class _ReportScreenState extends State<ReportScreen> {
   }
 }
 
+sendEmail(BuildContext context) async {
+  String email = 'mecodeuk@gmail.com';
+  String password = 'xxxxxxxxxxx';
+  print('InSendEmailFunction');
 
-sendEmail (BuildContext context) async {
-    String email = 'mecodeuk@gmail.com';
-    String password = 'xxxxxxxxxxx';
-    print('InSendEmailFunction');
+  final smtpServer = gmail(email, password);
 
-    final smtpServer = gmail(email, password);
-
-    final message = Message()
+  final message = Message()
     ..from = Address(email, 'ME CODE UK')
     ..recipients.add('mecodeuk@gmail.com')
     ..subject = 'Test Mail'
-    ..text = 'This is a test email to see if this email sends from correct sender and is received to correct receiver'
-    ;
+    ..text =
+        'This is a test email to see if this email sends from correct sender and is received to correct receiver';
 
-    try {
-      final sendReport = await send(message, smtpServer);
-      print('Message sent: ' + sendReport.toString());
-      ScaffoldMessenger.of(context)
+  try {
+    final sendReport = await send(message, smtpServer);
+    print('Message sent: ' + sendReport.toString());
+    ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("Mail Sent Successfully")));
-    } on MailerException catch (e) {
-      print('Message not sent.');
-      print(e.message);
-      for (var p in e.problems) {
-        print('Problem: ${p.code}: ${p.msg}');
-      }
+  } on MailerException catch (e) {
+    print('Message not sent.');
+    print(e.message);
+    for (var p in e.problems) {
+      print('Problem: ${p.code}: ${p.msg}');
     }
   }
+}
