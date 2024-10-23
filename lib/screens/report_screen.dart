@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:jstapp/screens/home_screen.dart';
+import 'package:jstapp/screens/summary_screen.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
 
@@ -328,9 +330,10 @@ class _ReportScreenState extends State<ReportScreen> {
                         ..recipients.add('mecodeuk@gmail.com')
                         ..ccRecipients.add(rBusEmail)
                         ..subject = 'Forklift App Report'
-                        ..text =
-                            'Forklift ID: $rID \nDriver name: $rDriver \nFault type: $_dropValue \n Report information: $rDetails';
+                        //..text =
+                            //'Forklift ID: $rID \nDriver name: $rDriver \nFault type: $_dropValue \n Report information: $rDetails';
                         // ..html = '<h1>Hello</h1>\n<p>Hey!</p><img src="cid:myimg">'
+                        ..html = '<h1>Report</h1><p><b>Forklift ID:</b> $rID<br><b>Driver name:</b> $rDriver<br><b>Fault type:</b> $_dropValue<br><b>Issue:</b> $rDetails</p>';
                         
                       for (File imageFile in attachments) {
                         message.attachments.add(FileAttachment(imageFile));
@@ -340,6 +343,8 @@ class _ReportScreenState extends State<ReportScreen> {
                       print('Message sent: ' + sendReport.toString());
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Mail Sent Successfully")));
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SummaryScreen(sumID: rID, sumDriver: rDriver, sumDetails: rDetails, sumFault: _dropValue, sumEmail: rBusEmail,)));
                     },
                     child: const Text(
                       style: const TextStyle(
