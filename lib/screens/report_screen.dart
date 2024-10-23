@@ -257,15 +257,19 @@ class _ReportScreenState extends State<ReportScreen> {
                       String email = 'mecodeuk@gmail.com';
                       String password = 'zgaw ftnd xphv vtuh';
                       String rID = _idController.text;
+                      String rDriver = _driverController.text;
+                      String rDetails = _detailsController.text;
+                      String rBusEmail = _busEmailController.text;
             
                       final smtpServer = gmail(email, password);
             
                       final message = Message()
                         ..from = Address(email, 'ME CODE UK')
                         ..recipients.add('mecodeuk@gmail.com')
+                        ..ccRecipients.add(rBusEmail)
                         ..subject = 'Forklift App Report'
                         ..text =
-                            'Forklift ID: This is a test email using the word: $rID to see if this email sends from correct sender and is received to correct receiver';
+                            'Forklift ID: $rID \nDriver name: $rDriver \nFault type: $_dropValue \n Report information: $rDetails';
                         // ..html = '<h1>Hello</h1>\n<p>Hey!</p><img src="cid:myimg">'
                         
                       for (File imageFile in attachments) {
