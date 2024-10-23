@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:jstapp/screens/home_screen.dart';
+import 'package:jstapp/screens/summary_screen.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
 
@@ -283,7 +284,7 @@ class _ReportScreenState extends State<ReportScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Mail Sent Successfully")));
 
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SummaryScreen(sumID: rID, sumDriver: rDriver, sumDetails: rDetails, sumFault: _dropValue, sumEmail: rBusEmail,)));
                     },
                     child: const Text(
                       style: const TextStyle(
