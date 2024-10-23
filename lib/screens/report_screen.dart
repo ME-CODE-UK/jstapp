@@ -18,6 +18,19 @@ class ReportScreen extends StatefulWidget {
 class _ReportScreenState extends State<ReportScreen> {
   String _dropValue = 'Fault one';
 
+  final _idController = TextEditingController();
+  final _driverController = TextEditingController();
+  final _faultController = TextEditingController();
+  final _detailsController = TextEditingController();
+  final _busEmailController = TextEditingController(); 
+
+  @override
+  void dispose() {
+    _idController.dispose();
+    super.dispose();
+  }
+
+
   final _commonFaults = [
     'Fault one',
     'Fault two',
@@ -73,7 +86,7 @@ class _ReportScreenState extends State<ReportScreen> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 255, 255, 255),
+              Color.fromRGBO(255, 255, 255, 1),
               Color.fromARGB(255, 197, 197, 197),
             ],
             begin: Alignment.topLeft,
@@ -85,16 +98,16 @@ class _ReportScreenState extends State<ReportScreen> {
             left: 50,
             right: 50,
             top: 50,
-            bottom: 100
+            bottom: 50
           ),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 25),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
                   child: Column(
                     children: [
-                      Row(
+                      const Row(
                         children: [
                           Text(
                             'Forklift ID',
@@ -103,7 +116,8 @@ class _ReportScreenState extends State<ReportScreen> {
                         ],
                       ),
                       TextField(
-                        decoration: InputDecoration(
+                        controller: _idController,
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Please enter the ID of the vehicle',
                         ),
@@ -111,17 +125,18 @@ class _ReportScreenState extends State<ReportScreen> {
                     ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 25),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
                   child: Column(
                     children: [
-                      Row(
+                      const Row(
                         children: [
                           Text('Driver name'),
                         ],
                       ),
                       TextField(
-                        decoration: InputDecoration(
+                        controller: _driverController,
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Please enter your name',
                         ),
@@ -130,7 +145,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 25),
+                  padding: const EdgeInsets.only(bottom: 20),
                   child: Column(
                     children: [
                       const Row(
@@ -171,7 +186,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 25),
+                  padding: const EdgeInsets.only(bottom: 20),
                   child: Column(
                     children: [
                       const Row(
@@ -181,6 +196,7 @@ class _ReportScreenState extends State<ReportScreen> {
                       ),
                       Scrollbar(
                         child: TextFormField(
+                          controller: _detailsController,
                           minLines: 4,
                           maxLines: 4,
                           keyboardType: TextInputType.multiline,
@@ -195,11 +211,11 @@ class _ReportScreenState extends State<ReportScreen> {
                     ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 25),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
                   child: Column(
                     children: [
-                      Row(
+                      const Row(
                         children: [
                           Text(
                             'Business email',
@@ -209,7 +225,8 @@ class _ReportScreenState extends State<ReportScreen> {
                       ),
                       Focus(
                         child: TextField(
-                          decoration: InputDecoration(
+                          controller: _busEmailController,
+                          decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Please enter the email through which you would like us to contact you',
                           ),
@@ -239,15 +256,16 @@ class _ReportScreenState extends State<ReportScreen> {
                     onPressed: () {
                       String email = 'mecodeuk@gmail.com';
                       String password = 'zgaw ftnd xphv vtuh';
+                      String rID = _idController.text;
             
                       final smtpServer = gmail(email, password);
             
                       final message = Message()
                         ..from = Address(email, 'ME CODE UK')
                         ..recipients.add('mecodeuk@gmail.com')
-                        ..subject = 'Test Mail: ${DateTime.now()}'
+                        ..subject = 'Forklift App Report'
                         ..text =
-                            'This is a test email to see if this email sends from correct sender and is received to correct receiver';
+                            'Forklift ID: This is a test email using the word: $rID to see if this email sends from correct sender and is received to correct receiver';
                         // ..html = '<h1>Hello</h1>\n<p>Hey!</p><img src="cid:myimg">'
                         
                       for (File imageFile in attachments) {
