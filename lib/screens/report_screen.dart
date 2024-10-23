@@ -5,6 +5,7 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart'; // Import for MasonryGridView
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -43,21 +44,25 @@ class _ReportScreenState extends State<ReportScreen> {
   final picker = ImagePicker();
   
   List<File> attachments = [];
+  List<XFile> _imageFiles = [];
 
-  Future getImageGallary() async{
-    final pickedFile = await picker.pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 80,
-    );
+  // Function to pick multiple images and display them in a grid
+  Future<void> pickImages() async {
+    final List<XFile>? selectedImages = await picker.pickMultiImage();
+    if (selectedImages != null && selectedImages.isNotEmpty) {
+      setState(() {
+        _imageFiles.addAll(selectedImages);
+        for (var image in selectedImages) {
+          attachments.add(File(image.path));
+        }
+      });
+    }
+  }
+
+  void _removeImage(int index) {
     setState(() {
-      if(pickedFile != null){
-        _image = File(pickedFile.path);
-        attachments.add(File(pickedFile.path));
-        // widget.imgUrl = null;
-      }
-      else{
-        print("No Image Picked");
-      }
+      _imageFiles.removeAt(index);
+      attachments.removeAt(index); // Also remove the image from attachments list
     });
   }
 
@@ -66,6 +71,7 @@ class _ReportScreenState extends State<ReportScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        // Back Button
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           color: Colors.white,
@@ -84,6 +90,7 @@ class _ReportScreenState extends State<ReportScreen> {
       ),
       body: Container(
         decoration: const BoxDecoration(
+          // Background Colour
           gradient: LinearGradient(
             colors: [
               Color.fromRGBO(255, 255, 255, 1),
@@ -93,16 +100,19 @@ class _ReportScreenState extends State<ReportScreen> {
             end: Alignment.bottomRight,
           ),
         ),
+        // Scroll View Padding
         child: Padding(
           padding: const EdgeInsets.only(
-            left: 50,
-            right: 50,
-            top: 50,
-            bottom: 50
+            left: 15,
+            right: 15,
+            top: 15,
+            bottom: 15
           ),
+          // Scroll View
           child: SingleChildScrollView(
             child: Column(
               children: [
+                // Forklift ID Text Field
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Column(
@@ -125,6 +135,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     ],
                   ),
                 ),
+                // Driver Name Text Field
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Column(
@@ -144,6 +155,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     ],
                   ),
                 ),
+                // Type of Fault Dropdown
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Column(
@@ -185,6 +197,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     ],
                   ),
                 ),
+                // Details Text Field
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Column(
@@ -211,6 +224,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     ],
                   ),
                 ),
+                // Business Email Text Field
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Column(
@@ -235,17 +249,63 @@ class _ReportScreenState extends State<ReportScreen> {
                     ],
                   ),
                 ),
-                Padding(
-                padding: const EdgeInsets.only(bottom: 30),
-                child: IconButton(
-                    icon: const Icon(Icons.camera_alt_rounded),
-                    color: Colors.lightBlue,
-                    iconSize: 28,
-                    onPressed: () {
-                      getImageGallary();
-                    },
-                  ),
+                // Add Image Picker Grid
+                ElevatedButton(
+                  onPressed: pickImages,
+                  child: Text('Pick Images'),
                 ),
+                // Image grid with delete functionality
+                _imageFiles.isNotEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: MasonryGridView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3, // Number of columns
+                          ),
+                          itemCount: _imageFiles.length,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 8,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Stack(
+                              children: [
+                                // Display the image
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.file(
+                                    File(_imageFiles[index].path),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Positioned(
+                                  right: 8,
+                                  top: 8,
+                                  child: GestureDetector(
+                                    onTap: () => _removeImage(index),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(4.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.redAccent,
+                                        borderRadius: BorderRadius.circular(12.0),
+                                      ),
+                                      child: const Icon(
+                                        Icons.close,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      )
+                    : const Text('No images selected.'),
+                
+                // Submit Button
                 Padding(
                   padding: const EdgeInsets.only(bottom: 30),
                   child: ElevatedButton(
