@@ -91,6 +91,7 @@ class _ReportScreenState extends State<ReportScreen> {
         ),
       ),
       body: Container(
+        height: double.infinity,
         decoration: const BoxDecoration(
           // Background Colour
           gradient: LinearGradient(
@@ -309,7 +310,7 @@ class _ReportScreenState extends State<ReportScreen> {
                 
                 // Submit Button
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 30),
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       foregroundColor: const Color.fromARGB(255, 255, 255, 255),
