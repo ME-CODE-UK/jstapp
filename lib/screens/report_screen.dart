@@ -42,11 +42,10 @@ class _ReportScreenState extends State<ReportScreen> {
     'Fault five',
   ];
 
-  File? _image;
   final picker = ImagePicker();
   
   List<File> attachments = [];
-  List<XFile> _imageFiles = [];
+  final List<XFile> _imageFiles = [];
 
   // Function to pick multiple images and display them in a grid
   Future<void> pickImages() async {
@@ -299,7 +298,7 @@ class _ReportScreenState extends State<ReportScreen> {
                 TextButton.icon(
                   style: TextButton.styleFrom(
                     shape:RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(15),
                     ),
                     backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                   ),
@@ -380,7 +379,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape:RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(15),
                       ),
                       foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
