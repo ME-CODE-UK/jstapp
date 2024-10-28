@@ -49,8 +49,8 @@ class _ReportScreenState extends State<ReportScreen> {
 
   // Function to pick multiple images and display them in a grid
   Future<void> pickImages() async {
-    final List<XFile>? selectedImages = await picker.pickMultiImage();
-    if (selectedImages != null && selectedImages.isNotEmpty) {
+    final List<XFile> selectedImages = await picker.pickMultiImage();
+    if (selectedImages.isNotEmpty) {
       setState(() {
         _imageFiles.addAll(selectedImages);
         for (var image in selectedImages) {
@@ -91,8 +91,7 @@ class _ReportScreenState extends State<ReportScreen> {
       message.attachments.add(FileAttachment(imageFile));
     }
 
-    final sendReport = send(message, smtpServer);
-    print('Message sent: ' + sendReport.toString());
+    send(message, smtpServer);
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Mail Sent Successfully")));
 
