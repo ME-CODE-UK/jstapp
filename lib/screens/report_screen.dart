@@ -253,9 +253,23 @@ class _ReportScreenState extends State<ReportScreen> {
                   ),
                 ),
                 // Add Image Picker Grid
-                ElevatedButton(
+                TextButton.icon(
+                  style: TextButton.styleFrom(
+                    shape:RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                  ),
                   onPressed: pickImages,
-                  child: Text('Pick Images'),
+                  icon: const Icon(Icons.camera_alt_outlined, color: Colors.white),
+                  label: const Text(
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                      'Select Images',
+                    ),
                 ),
                 // Image grid with delete functionality
                 _imageFiles.isNotEmpty
@@ -263,9 +277,9 @@ class _ReportScreenState extends State<ReportScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: MasonryGridView.builder(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
-                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                              const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3, // Number of columns
                           ),
                           itemCount: _imageFiles.length,
@@ -306,13 +320,25 @@ class _ReportScreenState extends State<ReportScreen> {
                           },
                         ),
                       )
-                    : const Text('No images selected.'),
+                    : const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 30),
+                      child: Text(
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 16,
+                      ),
+                      'No Images Selected',
+                    ),
+                    ),
                 
                 // Submit Button
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      shape:RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                     ),
@@ -343,12 +369,12 @@ class _ReportScreenState extends State<ReportScreen> {
                       final sendReport = send(message, smtpServer);
                       print('Message sent: ' + sendReport.toString());
                       ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Mail Sent Successfully")));
+                          const SnackBar(content: Text("Mail Sent Successfully")));
 
                       Navigator.push(context, MaterialPageRoute(builder: (context) => SummaryScreen(sumID: rID, sumDriver: rDriver, sumDetails: rDetails, sumFault: _dropValue, sumEmail: rBusEmail,)));
                     },
                     child: const Text(
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 16,
                       ),
