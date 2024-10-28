@@ -11,6 +11,24 @@ class SummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        // Back Button
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(false),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Back',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Montserrat',
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
