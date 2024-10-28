@@ -68,6 +68,49 @@ class _ReportScreenState extends State<ReportScreen> {
     });
   }
 
+  void _submitReport() {
+    String email = 'mecodeuk@gmail.com';
+    String password = 'zgaw ftnd xphv vtuh';
+    String rID = _idController.text;
+    String rDriver = _driverController.text;
+    String rDetails = _detailsController.text;
+    String rBusEmail = _busEmailController.text;
+
+    final smtpServer = gmail(email, password);
+
+    final message = Message()
+      ..from = Address(email, 'ME CODE UK')
+      ..recipients.add('mecodeuk@gmail.com')
+      ..ccRecipients.add(rBusEmail)
+      ..subject = 'Forklift App Report'
+      //..text =
+          //'Forklift ID: $rID \nDriver name: $rDriver \nFault type: $_dropValue \n Report information: $rDetails';
+      // ..html = '<h1>Hello</h1>\n<p>Hey!</p><img src="cid:myimg">'
+      ..html = '<h1>Report</h1><p><b>Forklift ID:</b> $rID<br><b>Driver name:</b> $rDriver<br><b>Fault type:</b> $_dropValue<br><b>Issue:</b> $rDetails</p>';
+      
+    for (File imageFile in attachments) {
+      message.attachments.add(FileAttachment(imageFile));
+    }
+
+    final sendReport = send(message, smtpServer);
+    print('Message sent: ' + sendReport.toString());
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Mail Sent Successfully")));
+
+    Navigator.push(
+      context, 
+      MaterialPageRoute(
+        builder: (context) => SummaryScreen(
+          sumID: rID, 
+          sumDriver: rDriver, 
+          sumDetails: rDetails, 
+          sumFault: _dropValue, 
+          sumEmail: rBusEmail,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -342,37 +385,7 @@ class _ReportScreenState extends State<ReportScreen> {
                       foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                     ),
-                    onPressed: () {
-                      String email = 'mecodeuk@gmail.com';
-                      String password = 'zgaw ftnd xphv vtuh';
-                      String rID = _idController.text;
-                      String rDriver = _driverController.text;
-                      String rDetails = _detailsController.text;
-                      String rBusEmail = _busEmailController.text;
-            
-                      final smtpServer = gmail(email, password);
-            
-                      final message = Message()
-                        ..from = Address(email, 'ME CODE UK')
-                        ..recipients.add('mecodeuk@gmail.com')
-                        ..ccRecipients.add(rBusEmail)
-                        ..subject = 'Forklift App Report'
-                        //..text =
-                            //'Forklift ID: $rID \nDriver name: $rDriver \nFault type: $_dropValue \n Report information: $rDetails';
-                        // ..html = '<h1>Hello</h1>\n<p>Hey!</p><img src="cid:myimg">'
-                        ..html = '<h1>Report</h1><p><b>Forklift ID:</b> $rID<br><b>Driver name:</b> $rDriver<br><b>Fault type:</b> $_dropValue<br><b>Issue:</b> $rDetails</p>';
-                        
-                      for (File imageFile in attachments) {
-                        message.attachments.add(FileAttachment(imageFile));
-                      }
-            
-                      final sendReport = send(message, smtpServer);
-                      print('Message sent: ' + sendReport.toString());
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Mail Sent Successfully")));
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SummaryScreen(sumID: rID, sumDriver: rDriver, sumDetails: rDetails, sumFault: _dropValue, sumEmail: rBusEmail,)));
-                    },
+                    onPressed: _submitReport,
                     child: const Text(
                       style: TextStyle(
                         fontFamily: 'Montserrat',
