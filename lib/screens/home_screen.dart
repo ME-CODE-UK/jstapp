@@ -1,12 +1,16 @@
+//Import packages
 import 'package:flutter/material.dart';
 import 'package:jstapp/screens/report_screen.dart';
 
+//Create HomeScreen class
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+//Build Scaffold widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //Creates background container and sets background gradient
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -19,19 +23,31 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         child: Center(
+          //Creates column widget to display all the elements on the screen
           child: Column(
-            //mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 200, bottom: 40),
-                child: SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: Image.asset('assets/images/jst-logo.png',
+                //Creates container to display JST logo
+                child: Container(
+                  height: 125,
+                  width: 125,
+                  //Creates border for images
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 5,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  //Set image path
+                  child: Image.asset(
+                    'assets/images/jst-logo.png',
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
+              //Creates header text
               const Text(
                 'JST Forklift Report',
                 style: TextStyle(
@@ -41,21 +57,29 @@ class HomeScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              //Creates sized box to space elements
               const SizedBox(height: 150),
+              //Creates a sized box to display the report button inside
               SizedBox(
                 width: 220,
                 height: 50,
-                child: ElevatedButton(    
+                //Creates the report button
+                child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    shape:RoundedRectangleBorder(
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                     foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                     backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                   ),
+                  //On button press, adds a new route to the route stack, sends user to report_screen
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ReportScreen()));
                   },
+                  //Sets text for report button
                   child: const Text(
                     style: TextStyle(
                       fontFamily: 'Montserrat',
@@ -71,4 +95,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}//comment added to test new repo
+}
