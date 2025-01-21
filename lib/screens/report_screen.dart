@@ -8,7 +8,8 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart'; // Import for MasonryGridView
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+ // Import for MasonryGridView
 
 //Create stateful ReportScreen class
 class ReportScreen extends StatefulWidget {
