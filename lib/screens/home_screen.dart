@@ -1,6 +1,10 @@
 //Import packages
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:jstapp/screens/report_screen.dart';
+import 'package:jstapp/screens/scan_qr.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 //Create HomeScreen class
 class HomeScreen extends StatelessWidget {
@@ -88,6 +92,51 @@ class HomeScreen extends StatelessWidget {
                     'SEND REPORT',
                   ),
                 ),
+              ),SizedBox(
+                width: 220,
+                height: 20,
+              ),
+              SizedBox(
+                width: 220,
+                height: 150,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  //On button press, adds a new route to the route stack, sends user to report_screen
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ScanQr()));
+                  },
+                  //Sets text for report button
+                  child: const Text(
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 16,
+                    ),
+                    'SCAN QR',
+                  ),
+                ),
+                //Creates the report button
+                // child: MobileScanner(
+                //   controller: MobileScannerController(
+                //     detectionSpeed: DetectionSpeed.noDuplicates,
+                //     returnImage: true,
+                //   ),
+                //   onDetect: (capture) {
+                //     final List<Barcode> barcodes = capture.barcodes;
+                //     final Uint8List? image = capture.image;
+                //     for (final barcode in barcodes) {
+                //       print('Barcode found! ${barcode.rawValue}');
+                //     }
+                //   },
+                // ),
               ),
             ],
           ),
