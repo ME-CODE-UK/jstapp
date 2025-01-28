@@ -2,7 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:jstapp/screens/home_screen.dart';
+import 'package:jstapp/screens/scan_qr.dart';
 import 'package:jstapp/screens/summary_screen.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
@@ -28,7 +28,6 @@ class _ReportScreenState extends State<ReportScreen> {
 
   final _idController = TextEditingController();
   final _driverController = TextEditingController();
-  final _faultController = TextEditingController();
   final _detailsController = TextEditingController();
   final _busEmailController = TextEditingController(); 
 
@@ -130,6 +129,21 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 
+  void _scanQrCode() async {
+    // Navigate to ScanQr screen and wait for the scanned value
+    final scannedValue = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ScanQr()),
+    );
+
+    // Set the scanned value to the forkliftID text field
+    if (scannedValue != null && mounted) {
+      setState(() {
+        _idController.text = scannedValue;
+      });
+    }
+  }
+
   //Builds ReportScreen widget
   @override
   Widget build(BuildContext context) {
@@ -188,20 +202,18 @@ class _ReportScreenState extends State<ReportScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Row(
-                          children: [
-                            Text(
-                              'Forklift ID',
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
-                        ),
+                        const Text('Forklift ID'),
                         TextField(
                           controller: _idController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Please enter the ID of the vehicle',
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.qr_code_scanner),
+                              onPressed: _scanQrCode, // Trigger QR scanner
+                            ),
                           ),
                         ),
                       ],

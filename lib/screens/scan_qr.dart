@@ -1,6 +1,5 @@
 //Import packages
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:jstapp/screens/report_screen.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -23,7 +22,9 @@ class ScanQr extends StatelessWidget {
           final List<Barcode> barcodes = capture.barcodes;
           final Uint8List? image = capture.image;
           for (final barcode in barcodes) {
-            print('Barcode found! ${barcode.rawValue}');
+            Navigator.pop(context, barcode.rawValue ?? "No Data");
+            print('QR found! ${barcode.rawValue}');
+            break;
           }
         },
       ),
